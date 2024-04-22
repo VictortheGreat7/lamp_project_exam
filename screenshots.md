@@ -1,6 +1,6 @@
 # Screenshots
 
-### Screenshot of Ansible Playbook running on Master node (left) and newly created lamp deployment progress log file on Slave node (right)
+### Screenshot of Ansible Playbook running and showing the accessibility of the slave's IP address on the Master node(left) and newly created lamp deployment progress log file on the Slave node (right)
 
 ![Screenshot 1](./screenshots/Screenshot-1.png)
 
