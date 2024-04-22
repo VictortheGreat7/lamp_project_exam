@@ -13,10 +13,25 @@
       args:
         executable: /bin/bash
 
+    - name: Check if PHP application is accessible
+      uri:
+        url: "http://192.168.33.11/"
+        method: GET
+        status_code: 200
+      register: response
+      until: response.status == 200
+      retries: 5
+      delay: 5
+
+    - name: Display result
+      debug:
+        msg: "PHP application is accessible"
+      when: response.status == 200
+
     - name: Create a cron job to check server (Slave node's) uptime every day at 12 am
       cron:
         name: "Check Server Uptime"
         minute: 0
         hour: 0
-        job: "/usr/bin/uptime"
+        job: "/usr/bin/uptime >> /var/log/lamp_uptime.log 2>&1"
 

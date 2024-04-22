@@ -1,20 +1,20 @@
 # Screenshots
 
-### Screenshot of Ansible Playbook running on Master node and newly created log file on Slave node
+### Screenshot of Ansible Playbook running on Master node (left) and newly created lamp deployment progress log file on Slave node (right)
 
 ![Screenshot 1](./screenshots/Screenshot-1.png)
 
-### Screenshot of Apache running on Slave Node
+### Screenshot of Apache running on Slave Node, newly created cronjob and ip address details (right terminal)
 
 ![Screenshot 2](./screenshots/Screenshot-2.png)
 
 ### Proof of Laravel's accessibility through the Slave node's IP address
 
-![Screenshot 3](./screenshots/Screenshot-3.png)
+![Screenshot 3](./screenshots/Screenshot-4.png)
 
-### Screenshot of cronjob set by Ansible on the Slave node
+### Screenshot of custom ansible.cfg file on Master node (left terminal)
 
-![Screenshot 4](./screenshots/Screenshot-4.png)
+![Screenshot 4](./screenshots/Screenshot-3.png)
 
 ### Screenshot of Vagrantfile configurations
 

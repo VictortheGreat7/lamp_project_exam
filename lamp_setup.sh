@@ -164,7 +164,7 @@ configure_laravel() {
 configure_apache() {
     print_and_log "Configuring Apache virtual host..."
     # Creates and edits Apache virtual host configuration file.
-    sudo tee /etc/apache2/sites-available/lamp-project.conf $DESIRED_APACHE_CONF_FILE > /dev/null <<EOF
+    sudo tee /etc/apache2/sites-available/$DESIRED_APACHE_CONF_FILE > /dev/null <<EOF
 <VirtualHost *:80>
     ServerAdmin $APACHE_SERVER_ADMIN_EMAIL
     ServerName $APACHE_SERVER_NAME_OR_IP
