@@ -1,0 +1,5 @@
+main_node:
+  playbook_dir: "~/lamp_project_exam"
+
+remote_node:
+  hostname: # IP address of the remote node or domain name (if DNS is configured) that Apache should respond to

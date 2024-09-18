@@ -1,21 +1,23 @@
 - name: Run LAMP setup bash script and create a cron job that runs uptime
-  hosts: slave
+  hosts: remote_nodes
+  vars_files:
+    - variables.yaml
   become: yes
   tasks:
-    - name: Transfer script file to Slave node
+    - name: Transfer script file to Remote node
       copy:
-        src: /home/vagrant/lamp_project_exam/lamp_setup.sh
+        src: "{{ main_node.playbook_dir }}/lamp_setup.sh"
         dest: /tmp/lamp_setup.sh
         mode: "0755"
 
-    - name: Execute the script on the Slave Node
+    - name: Execute the script on the Remote Node
       shell: /tmp/lamp_setup.sh
       args:
         executable: /bin/bash
 
-    - name: Check if PHP application is accessible
+    - name: Check if hostname is accessible
       uri:
-        url: "http://192.168.33.11/"
+        url: "http://{{ remote_node.hostname }}/"
         method: GET
         status_code: 200
       register: response
@@ -25,10 +27,10 @@
 
     - name: Display result
       debug:
-        msg: "PHP application is accessible"
+        msg: "Hostname is accessible"
       when: response.status == 200
 
-    - name: Create a cron job to check server (Slave node's) uptime every day at 12 am
+    - name: Create a cron job to check server (remote node's) uptime every day at 12 am
       cron:
         name: "Check Server Uptime"
         minute: 0

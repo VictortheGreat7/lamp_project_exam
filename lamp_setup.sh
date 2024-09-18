@@ -9,6 +9,8 @@ set -eu
 MAX_RETRIES=3
 # Environment variable to prevent interactive prompts to restart services
 WITHOUT_RESTART="DEBIAN_FRONTEND=noninteractive"
+# Linux user to be used for Laravel application
+CURRENT_LINUX_USER="azureuser"
 # Directory where Laravel application files are to be stored
 LARAVEL_DIR="/var/www/html/laravel"
 # Root user password for MySQL
@@ -24,7 +26,7 @@ DESIRED_APACHE_CONF_FILE="lamp-project.conf"
 # Email address of the Apache server administrator
 APACHE_SERVER_ADMIN_EMAIL="webmaster@localhost"
 # Server name or IP address for the Apache server
-APACHE_SERVER_NAME_OR_IP="192.168.33.11"
+APACHE_SERVER_DOMAIN_NAME_OR_IP= # Public IP of server this script is run on or domain name if you have one and it resolves to the server
 # Directory where Apache logs are stored
 APACHE_LOG_DIR="/var/log/apache2"
 
@@ -72,7 +74,7 @@ clone_laravel() {
     # Clones Laravel repository to the specified directory.
     sudo git clone https://github.com/laravel/laravel.git $LARAVEL_DIR
     # Sets ownership and permissions for Laravel directories in case you decide to clone it in a directory owned by root (like /var/www/html) where you have to run sudo to install laravel dependencies (composer install).
-    sudo chown -R vagrant:vagrant $LARAVEL_DIR
+    sudo chown -R $CURRENT_LINUX_USER:$CURRENT_LINUX_USER $LARAVEL_DIR
     # Gives Apache access to Laravel's storage directory.
     sudo chown -R www-data:www-data $LARAVEL_DIR/storage
     sudo chmod -R 775 $LARAVEL_DIR/storage
@@ -85,7 +87,7 @@ install_laravel_dependencies() {
     local retries=0
     while [ $retries -lt $MAX_RETRIES ]; do
         # Attempts to install Laravel dependencies using Composer.
-        if composer install --optimize-autoloader --no-dev; then
+        if composer install; then
             print_and_log "Laravel dependencies installed successfully."
             return 0
         else
@@ -167,7 +169,7 @@ configure_apache() {
     sudo tee /etc/apache2/sites-available/$DESIRED_APACHE_CONF_FILE > /dev/null <<EOF
 <VirtualHost *:80>
     ServerAdmin $APACHE_SERVER_ADMIN_EMAIL
-    ServerName $APACHE_SERVER_NAME_OR_IP
+    ServerName $APACHE_SERVER_DOMAIN_NAME_OR_IP
     DocumentRoot $LARAVEL_DIR/public
 
     <Directory $LARAVEL_DIR/public>

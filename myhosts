@@ -1,0 +1,5 @@
+[main_node]
+localhost
+
+[remote_nodes]
+# Add your remote nodes here
