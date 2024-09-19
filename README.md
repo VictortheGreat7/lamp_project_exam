@@ -68,6 +68,7 @@ Modify the [`variables.yaml`](./variables.yaml) and [`lamp_setup.sh`](./lamp_set
 
 - **`hostname`**: Either a domain name (with DNS resolution) or the remote node's public IP for accessing the Laravel application.
 - **`APACHE_SERVER_DOMAIN_NAME_OR_IP`**: The same hostname should be set in the [`lamp_setup.sh`](./lamp_setup.sh) file.
+- **`CURRENT_LINUX_USER`**: The username of the user running the script. Use the username you ran `ssh-copy-id` with.
 
 #### 4. Configure Ansible
 

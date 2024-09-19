@@ -7,26 +7,37 @@ set -eu
 
 # Maximum number of retries for installing laravel dependencies
 MAX_RETRIES=3
+
 # Environment variable to prevent interactive prompts to restart services
 WITHOUT_RESTART="DEBIAN_FRONTEND=noninteractive"
+
 # Linux user to be used for Laravel application
-CURRENT_LINUX_USER="azureuser"
+CURRENT_LINUX_USER= # User that runs the script
+
 # Directory where Laravel application files are to be stored
 LARAVEL_DIR="/var/www/html/laravel"
+
 # Root user password for MySQL
 DB_ROOT_USER_PASSWORD="vagrant7"
+
 # Name of the MySQL database to be used by the Laravel application
 DB_NAME="laravel"
+
 # New user name to be set for MySQL database access
 LARAVEL_DB_USER="lamp"
+
 # New user password to be set for MySQL database access
 LARAVEL_DB_PASSWORD="lamproject7"
+
 # Desired Apache configuration file for the Laravel application
 DESIRED_APACHE_CONF_FILE="lamp-project.conf"
+
 # Email address of the Apache server administrator
 APACHE_SERVER_ADMIN_EMAIL="webmaster@localhost"
+
 # Server name or IP address for the Apache server
 APACHE_SERVER_DOMAIN_NAME_OR_IP= # Public IP of server this script is run on or domain name if you have one and it resolves to the server
+
 # Directory where Apache logs are stored
 APACHE_LOG_DIR="/var/log/apache2"
 
